@@ -1,0 +1,19 @@
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+*.class
+
+# Target #
+
+target/
+
+# Eclipse files #
+**/.project
+**/.classpath
+**/.settings/
+blog/bin/
+**/.tern-project
