@@ -34,8 +34,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-        		.antMatchers("/","/home","/register","/login").permitAll()
-                .antMatchers("**/api/private/**").authenticated();
+        	.antMatchers("/api/private/**").hasRole("USER")
+        	.and()
+        	.formLogin().loginPage("/login").permitAll();
+    /*	http.csrf().disable();
+    	http
+	        .httpBasic()
+	        .and()
+	        .authorizeRequests()
+	        .antMatchers("/api/private/**").hasRole("USER")
+            .and()
+            .formLogin().disable(); */
     }
 
     private PasswordEncoder getPasswordEncoder() {
