@@ -5,6 +5,9 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -13,11 +16,16 @@ import javax.persistence.ManyToOne;
 @Entity(name="recipe_food")
 public class RecipeFood implements Serializable{
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "id")
+	private int id;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe recipe;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "food_id", nullable = false)
     private Food food;
 	
@@ -27,11 +35,20 @@ public class RecipeFood implements Serializable{
 	public RecipeFood() {
 	}
 	
-	public RecipeFood(Recipe recipe, Food food, int quantity) {
+	public RecipeFood(int id, Recipe recipe, Food food, int quantity) {
 		super();
+		this.id = id;
 		this.recipe = recipe;
 		this.food = food;
 		this.quantity = quantity;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Recipe getRecipe() {
