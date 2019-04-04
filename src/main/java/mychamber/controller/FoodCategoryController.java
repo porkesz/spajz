@@ -19,7 +19,7 @@ import mychamber.model.FoodCategory;
 import mychamber.service.FoodCategoryService;
 
 @RestController
-@RequestMapping("/api/private")
+@RequestMapping("/api")
 public class FoodCategoryController {
 
 	@Autowired
