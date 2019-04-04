@@ -28,4 +28,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         return optionalUsers
                 .map(CustomUserDetails::new).get();
     }
+    
+    public User save(User user) {
+    	return userRepository.save(user);
+    }
 }
