@@ -1,7 +1,6 @@
 package mychamber.service;
 
 import java.util.Optional;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,5 +30,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     
     public User save(User user) {
     	return userRepository.save(user);
+    }
+    
+    public User findOne(int id) {
+    	return userRepository.findOne(id);
     }
 }

@@ -12,8 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @SuppressWarnings("serial")
-@Entity(name="recipe_food")
-public class RecipeFood implements Serializable{
+@Entity(name="chamber")
+public class Chamber implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -21,8 +21,8 @@ public class RecipeFood implements Serializable{
 	private int id;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "recipe_id", nullable = false)
-    private Recipe recipe;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "food_id", nullable = false)
@@ -31,17 +31,17 @@ public class RecipeFood implements Serializable{
 	@Column(name = "quantity")
 	private int quantity;
 
-	public RecipeFood() {
+	public Chamber() {
 	}
 	
-	public RecipeFood(int id, Recipe recipe, Food food, int quantity) {
+	public Chamber(int id, User user, Food food, int quantity) {
 		super();
 		this.id = id;
-		this.recipe = recipe;
+		this.user = user;
 		this.food = food;
 		this.quantity = quantity;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -50,12 +50,12 @@ public class RecipeFood implements Serializable{
 		this.id = id;
 	}
 
-	public Recipe getRecipe() {
-		return recipe;
+	public User getUser() {
+		return user;
 	}
 
-	public void setRecipe(Recipe recipe) {
-		this.recipe = recipe;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Food getFood() {
