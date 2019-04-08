@@ -33,6 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        http.cors();
         http.authorizeRequests()
         	.antMatchers("/api/private/**").hasRole("USER")
         	.and()
@@ -52,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             public String encode(CharSequence charSequence) {
                 return charSequence.toString();
             }
-
+            
             public boolean matches(CharSequence charSequence, String s) {
             	if (charSequence.toString().equals(s)) {
             		return true;
