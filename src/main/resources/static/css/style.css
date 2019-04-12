@@ -1,0 +1,9 @@
+.login {
+  max-width: 300px;
+  padding: 20px 40px 50px;
+  margin: 0 auto;
+}
+
+.error {
+	color: red;
+}

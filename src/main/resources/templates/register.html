@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: header('Register')" />
+<body>
+<div id="root">
+    <navbar-component></navbar-component>
+    <div class="container">
+        <h2>Register</h2>
+        <div class="six columns align-center">
+            <label for="username">Username<span class="error error-username" style="display:none"> Required!</span></label>
+            <input v-model="user.username" class="u-full-width" type="text" id="username"/>
+            <label for="user.password">Password<span class="error error-password" style="display:none"> Required!</span></label>
+            <input v-model="user.password" class="u-full-width" type="password" id="password"/>
+            <label for="user.firstname">Firstname<span class="error error-firstname" style="display:none"> Required!</span></label>
+            <input v-model="user.firstname" class="u-full-width" type="text" id="firstname"/>
+            <label for="lastname">Lastname<span class="error error-lastname" style="display:none"> Required!</span></label>
+            <input v-model="user.lastname" class="u-full-width" type="text" id="lastname"/>
+            <label for="email">Email<span class="error error-email" style="display:none"> Required!</span></label>
+            <input v-model="user.email" class="u-full-width" type="text" id="email"/>
+            <input class="u-full-width button-primary" type="submit" v-on:click="registerCheck" value="Submit" />
+        </div>
+    </div>
+</div>
+</body>
+<div th:replace="fragments/footer :: foot"></div>
+<script>
+    var app = new Vue({
+        el: '#root',
+        data:{
+            user: {
+            	username: '',
+                password: '',
+                firstname: '',
+                lastname: '',
+                email: ''
+            }
+        },
+        methods: {
+        	registerCheck(){
+        		var error = false;
+        		
+        		if (this.user.username == '') {
+        			$('.error-username').show();
+        			error = true;
+        		}
+        		
+        		if (this.user.password == '') {
+        			$('.error-password').show();
+        			error = true;
+        		}
+        		
+        		if (this.user.firstname == '') {
+        			$('.error-firstname').show();
+        			error = true;
+        		}
+        		
+        		if (this.user.lastname == '') {
+        			$('.error-lastname').show();
+        			error = true;
+        		}
+        		
+        		if (this.user.email == '') {
+        			$('.error-email').show();
+        			error = true;
+        		}
+        		
+        		if (!error) {
+        			this.register();
+        		}
+        	},
+        	
+            register(){
+        		console.log(this.user);
+                
+                axios({
+                    method:'post',
+                    url:'register',
+                    data: this.user
+                }).then(function(response){
+                	document.location.replace("/login");
+                });
+            }
+        }
+    });
+</script>
+</html>
