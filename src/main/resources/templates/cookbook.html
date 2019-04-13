@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="fragments/header :: header('My chamber home')" />
+<head th:replace="fragments/header :: header('My chamber cookbook')" />
 <body>
 <div id="root">
 	<navbar-component></navbar-component>
@@ -11,9 +11,10 @@
 </body>
 <div th:replace="fragments/footer :: foot"></div>
 
-<script src="/js/components/home.js"></script>
-<script src="/js/components/recipe.js"></script>
-<script src="/js/routes/index.js"></script>
+<script src="/js/components/cookbook.js"></script>
+<script src="/js/components/editrecipe.js"></script>
+<script src="/js/components/addrecipe.js"></script>
+<script src="/js/routes/cookbook.js"></script>
 <script>
     var app = new Vue({
         el: '#root',

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mychamber.dao.RecipeFoodRepository;
+import mychamber.model.Food;
 import mychamber.model.Recipe;
 import mychamber.model.RecipeFood;
 
@@ -18,6 +19,10 @@ public class RecipeFoodService {
 	
 	public Optional<List<RecipeFood>> allFoodForRecipe(Recipe recipe) {
 		return recipeFoodRepository.findByRecipe(recipe);
+	}
+	
+	public List<RecipeFood> findAll() {
+		return recipeFoodRepository.findAll();
 	}
 
 	public RecipeFood save(RecipeFood recipeFood) {

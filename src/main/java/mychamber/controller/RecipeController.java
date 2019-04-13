@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mychamber.model.Recipe;
+import mychamber.model.RecipeFood;
+import mychamber.pojo.RecipeWithRecipeFood;
+import mychamber.service.RecipeFoodService;
 import mychamber.service.RecipeService;
 
 @RestController
@@ -24,6 +27,9 @@ public class RecipeController {
 
 	@Autowired
 	RecipeService recipeService;
+	
+	@Autowired
+	RecipeFoodService recipeFoodService;
 	
 	@PostMapping("/recipes")
 	public Recipe createRecipe(@Valid @RequestBody Recipe recipe) 
@@ -77,6 +83,16 @@ public class RecipeController {
 		recipeService.delete(recipe);
 		
 		return ResponseEntity.ok().build();		
+	}
+	
+	@GetMapping("/recipeWithRecipeFood/{id}")
+	public RecipeWithRecipeFood getRecipeWithRecipeFoodByRecipeId(@PathVariable(value="id") Integer id) 
+	{
+		Recipe recipe = recipeService.findOne(id);
+		List<RecipeFood> recipeFoods = recipeFoodService.allFoodForRecipe(recipe).get();
+		RecipeWithRecipeFood recipeWithRecipeFoods = new RecipeWithRecipeFood(recipe, recipeFoods);
+		
+		return recipeWithRecipeFoods;
 	}
 	
 }

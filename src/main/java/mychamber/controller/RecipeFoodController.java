@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import mychamber.model.Food;
 import mychamber.model.Recipe;
 import mychamber.model.RecipeFood;
 import mychamber.service.RecipeFoodService;
@@ -36,6 +37,12 @@ public class RecipeFoodController {
 		Recipe recipe = recipeService.findOne(id);
 		Optional<List<RecipeFood>> recipeFood = recipeFoodService.allFoodForRecipe(recipe);
 		return recipeFood.get();
+	}
+	
+	@GetMapping("/recipeFoods")
+	public List<RecipeFood> getAllFoods()
+	{
+		return recipeFoodService.findAll();
 	}
 	
 	@PostMapping("/recipeFoods")
