@@ -17,6 +17,8 @@ window.Event = new Vue({
     }
 });
 
+Vue.component('vue-multiselect', window.VueMultiselect.default);
+
 Vue.component('navbar-component',{
     template: ` 
     	<div id="app">

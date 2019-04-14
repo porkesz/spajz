@@ -19,7 +19,7 @@ Vue.component('cookbook-component',{
 	            		{{recipe.recipe.name}}
 	            		<span class="pull-right">
 	            			<router-link v-bind:to="'/edit-recipe/'+recipe.recipe.id"><input class="button-primary" type="submit" value="Edit" /></router-link>
-	            			<input class="button-primary" type="submit" value="Delete" />
+	            			<input class="button-primary" type="submit" v-on:click="deleteRecipe(recipe.recipe.id)" value="Delete" />
 	            		</span>
 	            	</h4>
 	           	</li>
@@ -36,6 +36,12 @@ Vue.component('cookbook-component',{
     	</div>
 	`,
     methods : {
+    	deleteRecipe(id){
+    		axios.delete("/api/recipes/" + id)
+            .then(function(response){
+            	this.fetchMyRecipes();
+            }.bind(this))
+    	},
     	fetchMyRecipes(){
     		this.loading = true;
     		username = getCookie("login_user");
