@@ -8,6 +8,10 @@
 	color: red;
 }
 
+.error-nan {
+	color: red;
+}
+
 .submit-component {
 	margin-top: 20px;
 }

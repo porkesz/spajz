@@ -18,6 +18,10 @@ public class ChamberService {
 	public List<Chamber> allByUser(User user) {
 		return chamberRepository.findByUser(user);
 	}
+	
+	public Chamber findOne(int id) {
+		return chamberRepository.findOne(id);
+	}
 
 	public Chamber save(Chamber chamber) {
 		return chamberRepository.save(chamber);

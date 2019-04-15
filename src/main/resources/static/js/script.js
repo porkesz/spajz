@@ -38,6 +38,7 @@ Vue.component('navbar-component',{
 		          <li></li>
 		        </ul>
 		        <ul class="nav navbar-nav navbar-right">
+		          <li v-if="isLoggedIn()"><a href="/chamber">Chamber</a></li>
 		          <li v-if="isLoggedIn()"><a href="/cookbook">Cookbook</a></li>
 		          <li v-if="isLoggedIn()"><a v-on:click="logout">Logout</a></li>
 		          <li v-show="!isLoggedIn()"><a href="/login">Login</a></li>

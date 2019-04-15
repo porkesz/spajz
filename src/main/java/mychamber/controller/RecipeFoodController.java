@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mychamber.model.Food;
 import mychamber.model.Recipe;
 import mychamber.model.RecipeFood;
 import mychamber.service.RecipeFoodService;

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: header('Chamber')" />
+<body>
+<div id="root">
+	<navbar-component></navbar-component>
+    <div class="container">
+    	<router-view></router-view>       
+    </div>
+</div>
+</body>
+<div th:replace="fragments/footer :: foot"></div>
+
+<script src="/js/components/chamber.js"></script>
+<script src="/js/components/addchamber.js"></script>
+<script src="/js/components/editchamber.js"></script>
+<script src="/js/routes/chamber.js"></script>
+<script>
+    var app = new Vue({
+        el: '#root',
+        router: router
+    });
+</script>
+</html>

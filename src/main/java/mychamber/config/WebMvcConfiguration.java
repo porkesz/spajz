@@ -1,9 +1,6 @@
 package mychamber.config;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -19,5 +16,8 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         registry.addViewController("/cookbook").setViewName("cookbook");
         registry.addViewController("/add-recipe").setViewName("cookbook");
         registry.addViewController("/edit-recipe/**").setViewName("cookbook");
+        registry.addViewController("/chamber").setViewName("chamber");
+        registry.addViewController("/add-chamber").setViewName("chamber");
+        registry.addViewController("/edit-chamber/**").setViewName("chamber");
     }
 }
