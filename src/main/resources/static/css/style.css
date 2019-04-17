@@ -15,3 +15,11 @@
 .submit-component {
 	margin-top: 20px;
 }
+
+.glyphicon-star-empty {
+   color: yellow;
+}
+
+.glyphicon-star {
+   color: yellow;
+}

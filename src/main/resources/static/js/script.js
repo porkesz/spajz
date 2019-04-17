@@ -49,14 +49,10 @@ Vue.component('navbar-component',{
 		  </nav>
 	  </div>
 	`,
-    data: function(){
-        return {logged_in_msg : ""}
-    },
     mounted(){
         if(getCookie("login_user")){
             axios.get("/getUsername")
                 .then(function(response){
-                    this.logged_in_msg = "Welcome back , " + response.data;
                     window.Event.isLoggedIn = true;
                     Event.$emit('logged-in');
                 }.bind(this))
@@ -72,7 +68,6 @@ Vue.component('navbar-component',{
                 .then(function(response){
                     window.Event.isLoggedIn = false;
                     delete_cookie("login_user");
-                    this.logged_in_msg  = "Successfully logged out";
                     document.location.replace("/");
                 }.bind(this))
         },
