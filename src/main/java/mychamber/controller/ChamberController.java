@@ -61,7 +61,7 @@ public class ChamberController {
 		List<Food> foods = foodService.findAll();
 		
 		for (Chamber chamber : userChambers) {
-			foods.removeIf(c -> c.getName().equals(chamber.getFood().getName()));	
+			foods.removeIf(c -> c.getName().equals(chamber.getFood().getName()));
 		}
 		
 		return foods;

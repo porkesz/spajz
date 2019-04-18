@@ -8,6 +8,9 @@ Vue.component('chamber-component',{
     	<div>
 			<h1 class="page-header">Chamber</h1>
 			<router-link to="/add-chamber">Add new food</router-link>
+		    <router-link to="/menu">
+		    	<span class="glyphicon glyphicon-shopping-cart pull-right"></span>
+		    </router-link>	
 		    <br />
 		    <br />
 		    <div v-for="food in myFoods">

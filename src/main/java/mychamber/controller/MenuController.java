@@ -1,5 +1,6 @@
 package mychamber.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import mychamber.model.Chamber;
 import mychamber.model.Menu;
 import mychamber.model.Recipe;
+import mychamber.model.RecipeFood;
 import mychamber.model.User;
+import mychamber.pojo.ShoppingListItem;
+import mychamber.service.ChamberService;
 import mychamber.service.MenuService;
 import mychamber.service.RecipeFoodService;
 import mychamber.service.RecipeService;
@@ -39,6 +44,9 @@ public class MenuController {
 	
 	@Autowired
 	UserDetailsService userService;
+	
+	@Autowired
+	ChamberService chamberService;
 	
 	@GetMapping("/menusByUser")
 	public ResponseEntity<List<Menu>> findMenuByUser()
@@ -82,11 +90,66 @@ public class MenuController {
 		return ResponseEntity.ok().body(menu);
 	}
 	
-	@DeleteMapping("/menus")
-	public ResponseEntity<Menu> deleteMenu(@Valid @RequestBody int menuId)
+	@DeleteMapping("/menus/{id}")
+	public ResponseEntity<Menu> deleteMenu(@PathVariable(value="id") Integer id)
 	{	
-		menuService.delete(menuId);
+		menuService.delete(id);
 		return ResponseEntity.ok().build();		
 	}
 	
+	@GetMapping("/shoppingList")
+	public ResponseEntity<List<ShoppingListItem>> getShoppingList()
+	{
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = (User) userService.loadUserByUsername(username);
+		Optional<List<Menu>> menus = menuService.allMenuByUser(user);
+		List<ShoppingListItem> shoppingList = new ArrayList<>();
+		List<Chamber> chamberList = chamberService.allByUser(user);
+		
+		if (menus.isPresent()) {
+			for (Menu menu : menus.get()) {
+				Optional<List<RecipeFood>> recipeFoods = recipeFoodService.allFoodForRecipe(menu.getRecipe());
+				if (recipeFoods.isPresent()) {
+					for (RecipeFood recipeFood : recipeFoods.get()) {
+						ShoppingListItem shoppingListItem = new ShoppingListItem();
+						shoppingListItem.setFoodName(recipeFood.getFood().getName());
+						shoppingListItem.setFoodUnit(recipeFood.getFood().getUnit());
+						shoppingListItem.setFoodQuantity(recipeFood.getQuantity());
+						if (this.isExistsShoppingListItem(shoppingListItem, shoppingList)) {
+							for (ShoppingListItem listItem : shoppingList) {
+								if (listItem.getFoodName() == shoppingListItem.getFoodName()) {
+									listItem.setFoodQuantity(listItem.getFoodQuantity() + shoppingListItem.getFoodQuantity());
+								}
+							}
+						} else {
+							shoppingList.add(shoppingListItem);
+						}
+					}
+				}
+			}
+		}
+		
+		for (ShoppingListItem shoppingListItem : shoppingList) {
+			for (Chamber chamber : chamberList) {
+				if (shoppingListItem.getFoodName() == chamber.getFood().getName()) {
+					shoppingListItem.setFoodQuantity(shoppingListItem.getFoodQuantity() - chamber.getQuantity());
+				}
+			}
+		}
+		
+		shoppingList.removeIf(c -> c.getFoodQuantity() <= 0 );
+		
+		return ResponseEntity.ok().body(shoppingList);
+	}
+	
+	private Boolean isExistsShoppingListItem(ShoppingListItem shoppingListItem, List<ShoppingListItem> shoppingList)
+	{
+		for (ShoppingListItem listItem : shoppingList) {
+			if (listItem.getFoodName() == shoppingListItem.getFoodName()) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

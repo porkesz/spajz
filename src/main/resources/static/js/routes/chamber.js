@@ -10,10 +10,15 @@ var EditChamber = { template:
 	'<edit-chamber-component></edit-chamber-component>'
 };
 
+var Menu = { template:
+	'<menu-component></menu-component>'	
+};
+
 var routes = [
   { path: '/chamber', component: Chamber },
-  { path: '/add-chamber', component: AddChamber},
-  { path: '/edit-chamber/:id', component: EditChamber}
+  { path: '/add-chamber', component: AddChamber },
+  { path: '/edit-chamber/:id', component: EditChamber },
+  { path: '/menu', component: Menu }
 ];
 
 var router = new VueRouter({
