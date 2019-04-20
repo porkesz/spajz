@@ -36,19 +36,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.cors();
         http.authorizeRequests()
         	.antMatchers("/api/private/**").hasRole("USER")
         	.and()
         	.formLogin().loginPage("/login").permitAll();
-    /*	http.csrf().disable();
-    	http
-	        .httpBasic()
-	        .and()
-	        .authorizeRequests()
-	        .antMatchers("/api/private/**").hasRole("USER")
-            .and()
-            .formLogin().disable(); */
     }
 
     private PasswordEncoder getPasswordEncoder() {
