@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mychamber.model.Food;
@@ -29,7 +28,6 @@ import mychamber.service.RecipeFoodService;
 import mychamber.service.RecipeService;
 
 @RestController
-@RequestMapping("/api")
 public class RecipeController {
 
 	@Autowired
@@ -44,13 +42,31 @@ public class RecipeController {
 	@Autowired
 	FoodService foodService;
 	
-	@PostMapping("/recipes")
+	@GetMapping("/recipes")
+	public List<Recipe> getAllRecipe()
+	{
+		return recipeService.findAll();
+	}
+	
+	@GetMapping("/recipes/{id}")
+	public ResponseEntity<Recipe> getRecipeById(@PathVariable(value="id") Integer id)
+	{	
+		Recipe recipe = recipeService.findOne(id);
+		
+		if (recipe == null) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		return ResponseEntity.ok().body(recipe);
+	}
+	
+	@PostMapping("/api/recipes")
 	public Recipe createRecipe(@Valid @RequestBody Recipe recipe) 
 	{
 		return recipeService.save(recipe);
 	}
 	
-	@PostMapping("/recipeWithRecipeFoodSave")
+	@PostMapping("/api/recipeWithRecipeFoodSave")
 	public Recipe createRecipeWithRecipeFoodSave(@Valid @RequestBody RecipeWithRecipeFoodSave recipeSave) 
 	{
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -78,25 +94,7 @@ public class RecipeController {
 		return createdRecipe;
 	}
 	
-	@GetMapping("/recipes")
-	public List<Recipe> getAllRecipe()
-	{
-		return recipeService.findAll();
-	}
-	
-	@GetMapping("/recipes/{id}")
-	public ResponseEntity<Recipe> getRecipeById(@PathVariable(value="id") Integer id)
-	{	
-		Recipe recipe = recipeService.findOne(id);
-		
-		if (recipe == null) {
-			return ResponseEntity.notFound().build();
-		}
-		
-		return ResponseEntity.ok().body(recipe);
-	}
-	
-	@PutMapping("/recipes/{id}")
+	@PutMapping("/api/recipes/{id}")
 	public ResponseEntity<Recipe> updateRecipe(@PathVariable(value="id") Integer id,@Valid @RequestBody RecipeWithRecipeFoodSave recipeSave)
 	{
 		Recipe recipe = recipeService.findOne(id); 
@@ -132,7 +130,7 @@ public class RecipeController {
 		return ResponseEntity.ok().body(updateRecipe);
 	}
 	
-	@DeleteMapping("/recipes/{id}")
+	@DeleteMapping("/api/recipes/{id}")
 	public ResponseEntity<Recipe> deleteRecipe(@PathVariable(value="id") Integer id)
 	{	
 		Recipe recipe = recipeService.findOne(id);
@@ -151,7 +149,7 @@ public class RecipeController {
 		return ResponseEntity.ok().build();		
 	}
 	
-	@GetMapping("/recipeWithRecipeFood/{id}")
+	@GetMapping("/api/recipeWithRecipeFood/{id}")
 	public RecipeWithRecipeFood getRecipeWithRecipeFoodByRecipeId(@PathVariable(value="id") Integer id) 
 	{
 		Recipe recipe = recipeService.findOne(id);

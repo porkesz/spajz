@@ -110,7 +110,7 @@ Vue.component('edit-recipe-component',{
     	},
     	fetchRecipe(){
     		var id = this.$route.params.id;
-    		axios.get("/api/recipes/" + id)
+    		axios.get("/recipes/" + id)
             .then(function(response){
             	var data = response.data;
             	this.recipe = {name: data.name, description: data.description};
@@ -118,7 +118,7 @@ Vue.component('edit-recipe-component',{
         },
         fetchComponents(){
         	var id = this.$route.params.id;
-        	axios.get("/api/recipeFoodsByRecipeId/" + id)
+        	axios.get("/recipeFoodsByRecipeId/" + id)
             .then(function(response){
             	var tempFood = [];
             	var tempQuantity = [];

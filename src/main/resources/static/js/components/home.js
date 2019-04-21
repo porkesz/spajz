@@ -32,7 +32,7 @@ Vue.component('home-component',{
 	`,
     methods : {
     	fetchRecipes(){
-    		axios.get("/api/recipes")
+    		axios.get("/recipes")
             .then(function(response){
             	this.recipes = response.data;
             }.bind(this))

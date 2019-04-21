@@ -46,7 +46,7 @@ Vue.component('cookbook-component',{
     		this.loading = true;
     		username = getCookie("login_user");
     		if(username){
-    			axios.get("/api/recipes")
+    			axios.get("/recipes")
                 .then(function(response){
                 	 var recipes = response.data;
                 	 if(recipes){

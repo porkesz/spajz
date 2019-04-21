@@ -49,14 +49,14 @@ Vue.component('recipe-component',{
     methods : {
     	fetchRecipes(){
     		var id = this.$route.params.id;
-    		axios.get("/api/recipes/" + id)
+    		axios.get("/recipes/" + id)
             .then(function(response){
             	this.recipe= response.data;
             }.bind(this))
         },
         fetchComponents(){
         	var id = this.$route.params.id;
-        	axios.get("/api/recipeFoodsByRecipeId/" + id)
+        	axios.get("/recipeFoodsByRecipeId/" + id)
             .then(function(response){
             	this.components = response.data;
             }.bind(this));
