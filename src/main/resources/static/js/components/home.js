@@ -24,7 +24,7 @@ Vue.component('home-component',{
 		            <td>{{recipe.name}}</td>
 		            <td>{{recipe.user.firstname}} {{recipe.user.lastname}}</td>
 		            <td></td>
-		            <td><router-link class="btn btn-default" v-bind:to="'/recipe/'+recipe.id">View</router-link></td>
+		            <td><router-link v-bind:to="'/recipe/'+recipe.id"><input class="button-primary pull-right" type="submit" value="View" /></router-link></td>
 		          </tr>
 		        </tbody>
 		    </table>
