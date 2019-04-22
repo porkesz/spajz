@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import mychamber.dao.MenuRepository;
 import mychamber.model.Menu;
+import mychamber.model.Recipe;
 import mychamber.model.User;
 
 @Service
@@ -18,6 +19,10 @@ public class MenuService {
 	
 	public Optional<List<Menu>> allMenuByUser(User user) {
 		return menuRepository.findByUser(user);
+	}
+	
+	public Optional<List<Menu>> allMenuByRecipe(Recipe recipe) {
+		return menuRepository.findByRecipe(recipe);
 	}
 	
 	public Menu findOne(int id) {

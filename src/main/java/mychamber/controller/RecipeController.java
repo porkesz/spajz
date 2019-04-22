@@ -1,6 +1,7 @@
 package mychamber.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import mychamber.model.Food;
+import mychamber.model.Menu;
 import mychamber.model.Recipe;
 import mychamber.model.RecipeFood;
 import mychamber.model.User;
@@ -24,6 +26,7 @@ import mychamber.pojo.RecipeWithRecipeFood;
 import mychamber.pojo.RecipeWithRecipeFoodSave;
 import mychamber.service.CustomUserDetailsService;
 import mychamber.service.FoodService;
+import mychamber.service.MenuService;
 import mychamber.service.RecipeFoodService;
 import mychamber.service.RecipeService;
 
@@ -41,6 +44,9 @@ public class RecipeController {
 	
 	@Autowired
 	FoodService foodService;
+	
+	@Autowired
+	MenuService menuService;
 	
 	@GetMapping("/recipes")
 	public List<Recipe> getAllRecipe()
@@ -135,6 +141,7 @@ public class RecipeController {
 	{	
 		Recipe recipe = recipeService.findOne(id);
 		List<RecipeFood> recipeFoods = recipeFoodService.allFoodForRecipe(recipe).get();
+		Optional<List<Menu>> menus = menuService.allMenuByRecipe(recipe);
 		
 		if (recipe == null) {
 			return ResponseEntity.notFound().build();
@@ -142,6 +149,12 @@ public class RecipeController {
 		
 		for (RecipeFood recipeFood : recipeFoods) {
 			recipeFoodService.delete(recipeFood);
+		}
+		
+		if (menus.isPresent()) {
+			for (Menu menu : menus.get()) {
+				menuService.delete(menu.getId());
+			}
 		}
 		
 		recipeService.delete(recipe);
