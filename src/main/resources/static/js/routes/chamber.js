@@ -14,11 +14,16 @@ var Menu = { template:
 	'<menu-component></menu-component>'	
 };
 
+var AddFood = { template:
+	'<add-food-component></add-food-component>'
+};
+
 var routes = [
   { path: '/chamber', component: Chamber },
   { path: '/add-chamber', component: AddChamber },
   { path: '/edit-chamber/:id', component: EditChamber },
-  { path: '/menu', component: Menu }
+  { path: '/menu', component: Menu },
+  { path: '/add-food', component: AddFood}
 ];
 
 var router = new VueRouter({

@@ -47,7 +47,7 @@ Vue.component('recipe-component',{
     	</div>
 	`,
     methods : {
-    	fetchRecipes(){
+    	fetchRecipe(){
     		var id = this.$route.params.id;
     		axios.get("/recipes/" + id)
             .then(function(response){
@@ -89,7 +89,7 @@ Vue.component('recipe-component',{
         }
     },
     created: function(){
-        this.fetchRecipes();
+        this.fetchRecipe();
         this.fetchComponents();
         this.setIsInMenu();
     }

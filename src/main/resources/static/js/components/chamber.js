@@ -7,10 +7,15 @@ Vue.component('chamber-component',{
     template: ` 
     	<div>
 			<h1 class="page-header">Chamber</h1>
-			<router-link to="/add-chamber">Add new food</router-link>
-		    <router-link to="/menu">
-		    	<span class="glyphicon glyphicon-shopping-cart pull-right"></span>
-		    </router-link>	
+			<router-link to="/add-chamber">Add new food to chamber</router-link>
+		    <span class="pull-right">
+			    <router-link to="/add-food">
+			    	<span class="glyphicon glyphicon-apple"></span>
+			    </router-link>
+			    <router-link to="/menu">
+			    	<span class="glyphicon glyphicon-shopping-cart"></span>
+			    </router-link>
+		    </span>	
 		    <br />
 		    <br />
 		    <div v-for="food in myFoods">
