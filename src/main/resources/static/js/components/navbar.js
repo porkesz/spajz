@@ -42,7 +42,7 @@ Vue.component('navbar-component',{
                     Event.$emit('logged-in');
                 }.bind(this))
                 .catch(function(error){
-                    delete_cookie("login_user");
+                    deleteCookie("login_user");
                     return error;
                 });
         }
@@ -52,7 +52,7 @@ Vue.component('navbar-component',{
             axios.get("/logout")
                 .then(function(response){
                     window.Event.isLoggedIn = false;
-                    delete_cookie("login_user");
+                    deleteCookie("login_user");
                     document.location.replace("/");
                 }.bind(this))
         },

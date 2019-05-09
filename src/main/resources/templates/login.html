@@ -46,7 +46,7 @@
             	  axios.get("/getUsername")
                   .then(function(response){
                   		if (response.data == username) {
-                  			set_cookie("login_user", username);
+                  			setCookie("login_user", username);
                             document.location.replace("/");
                   		} else {
                   			$('.error').show();

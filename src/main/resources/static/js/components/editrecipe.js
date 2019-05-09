@@ -57,11 +57,11 @@ Vue.component('edit-recipe-component',{
 			            </div>
 			        </div>    
 		        </div>
-		        <button type="submit" v-on:click="checkAddRecipe" class="btn btn-primary">Submit</button>	    
+		        <button type="submit" v-on:click="checkEditRecipe" class="btn btn-primary">Submit</button>	    
     	</div>
 	`,
     methods : {
-    	checkAddRecipe(){
+    	checkEditRecipe(){
     		var error = false;
     		if (this.recipe.name == undefined
     			|| this.recipe.description == undefined
@@ -78,10 +78,10 @@ Vue.component('edit-recipe-component',{
     		if (error == true) {
     			$('.error').show();
     		} else {
-    			this.addRecipe();
+    			this.editRecipe();
     		}
     	},
-    	addRecipe(){
+    	editRecipe(){
     		var recipeFood = [];
     		var self = this;
     		
