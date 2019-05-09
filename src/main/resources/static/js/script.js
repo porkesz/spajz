@@ -4,7 +4,7 @@ function getCookie(name) {
     if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
-function set_cookie(name, value) {
+function setCookie(name, value) {
     document.cookie = name +'='+ value +'; Path=/;';
 }
 
